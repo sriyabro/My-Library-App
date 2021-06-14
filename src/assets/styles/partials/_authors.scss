@@ -1,0 +1,30 @@
+.authors {
+  .add-author {
+    vertical-align: center;
+
+    .plus-icon {
+      color: $plus-icon-color;
+      cursor: pointer;
+    }
+
+    span {
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  .list-group-item {
+      .icon {
+        visibility: hidden;
+      }
+
+      .author:hover {
+        background-color: $hover-color;
+
+        .icon {
+          visibility: visible;
+          cursor: pointer;
+        }
+      }
+  }
+}
