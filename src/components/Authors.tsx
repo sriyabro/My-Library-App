@@ -1,12 +1,11 @@
 import React from "react";
 import {Col, Row} from "react-bootstrap";
+import Header from "./Header";
 
 const Authors: React.FC = () => {
     return (
         <Row>
-            <Col>
-                <h1>Authors</h1>
-            </Col>
+            <Header header="Authors" />
         </Row>
     );
 }
