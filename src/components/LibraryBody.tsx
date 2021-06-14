@@ -5,7 +5,7 @@ import Books from "./Books";
 
 const LibraryBody: React.FC = () => {
     return (
-        <Row>
+        <Row className="library-body mt-4">
             <Col xs={12} md={6} className="px-5">
                 <Books />
             </Col>
