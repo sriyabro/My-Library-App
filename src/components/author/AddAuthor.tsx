@@ -1,6 +1,6 @@
 import React from "react";
 import { Col } from 'react-bootstrap';
-import {Plus} from "react-feather"
+import { Plus } from "react-feather"
 
 const AddAuthor: React.FC = () => {
     return (
