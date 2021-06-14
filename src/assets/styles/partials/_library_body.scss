@@ -1,0 +1,24 @@
+.library-body {
+    .header {
+        border-bottom: 2px solid #2D3134;
+        color: $font-color;
+    }
+
+    .no-items-label {
+
+    }
+
+    .add-item {
+        vertical-align: center;
+
+        .plus-icon {
+          color: $add-item-color;
+          cursor: pointer;
+        }
+
+        span {
+          font-weight: 500;
+          cursor: pointer;
+        }
+    }
+}
