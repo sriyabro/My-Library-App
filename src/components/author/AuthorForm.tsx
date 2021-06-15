@@ -1,82 +1,35 @@
-import React from "react";
-import {Button, Col, Form, InputGroup} from 'react-bootstrap';
+import React, {useState} from "react";
+import {Col, Form, Row} from 'react-bootstrap';
+import {XCircle} from "react-feather";
+import FormButton from "../FormButton";
 
 const AuthorForm: React.FC = () => {
+    const [formValidate, setFormValidate] = useState<boolean>(false);
+
     return (
-        <Col xs={12} lg={{span: 10, offset: 2}} className="author-form">
-            <Form noValidate validated={true} >
-                <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="validationCustom01">
-                        <Form.Label>First name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="First name"
-                            defaultValue="Mark"
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationCustom02">
-                        <Form.Label>Last name</Form.Label>
-                        <Form.Control
-                            required
-                            type="text"
-                            placeholder="Last name"
-                            defaultValue="Otto"
-                        />
-                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                        <Form.Label>Username</Form.Label>
-                        <InputGroup hasValidation>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                type="text"
-                                placeholder="Username"
-                                aria-describedby="inputGroupPrepend"
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please choose a username.
-                            </Form.Control.Feedback>
-                        </InputGroup>
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                    <Form.Group as={Col} md="6" controlId="validationCustom03">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control type="text" placeholder="City" required/>
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid city.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationCustom04">
-                        <Form.Label>State</Form.Label>
-                        <Form.Control type="text" placeholder="State" required/>
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid state.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group as={Col} md="3" controlId="validationCustom05">
-                        <Form.Label>Zip</Form.Label>
-                        <Form.Control type="text" placeholder="Zip" required/>
-                        <Form.Control.Feedback type="invalid">
-                            Please provide a valid zip.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Form.Row>
-                <Form.Group>
-                    <Form.Check
-                        required
-                        label="Agree to terms and conditions"
-                        feedback="You must agree before submitting."
-                    />
-                </Form.Group>
-                <Button type="submit">Submit form</Button>
-            </Form>
+        <Col xs={12} lg={9} className="form mt-4 px-0">
+            <Col xs={12}>
+                <Row className="form-title">
+                    <Col xs={9} className="p-0">
+                        <h5><label>Create Author</label></h5>
+                    </Col>
+                    <Col xs={3} className="text-right px-0">
+                        <XCircle size={22} />
+                    </Col>
+                </Row>
+            </Col>
+            <Col xs={12} lg={{span: 11, offset: 1}} className="px-0">
+                <Form noValidate validated={formValidate} >
+                        <Form.Group>
+                            <Form.Label className=" mb-0 ml-1">Name of Author</Form.Label>
+                            <Form.Control size="sm" type="text" required />
+                            <Form.Control.Feedback type="invalid">Please enter the name of author</Form.Control.Feedback>
+                        </Form.Group>
+                    <FormButton updateClicked={true} />
+                </Form>
+            </Col>
         </Col>
+
     );
 }
 
