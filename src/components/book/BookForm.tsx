@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import {Button, Col, Form, Row } from "react-bootstrap";
 import { XCircle } from "react-feather";
-import FormButton from "../FormButton";
 import Select from "react-select/base";
 
 const options = [
@@ -54,11 +53,13 @@ const BookForm: React.FC = () => {
                                     options={options}
                                     styles={customStyles}
                                     isClearable
-                                    sisSearchable
+                                    isSearchable
                               />
                             <Form.Control.Feedback type="invalid">Please enter a valid ISBN</Form.Control.Feedback>
                         </Form.Group>
-                    <FormButton updateClicked={false} />
+                        <Button className="form-button float-right mt-2 py-1 px-4" type="submit">
+                            {false ? 'Update' : 'Create'}
+                        </Button>
                 </Form>
             </Col>
         </Col>
