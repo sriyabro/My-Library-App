@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Button, Col, Form, Row} from 'react-bootstrap';
 import {XCircle} from "react-feather";
 import {IAuthor} from "../../types/Types";
@@ -6,11 +6,13 @@ import {IAuthor} from "../../types/Types";
 type AuthorFormProps = {
     closeButtonClicked: () => void,
     updateClicked: boolean,
-    createAuthorSubmit: (newAuthor: IAuthor) => void
+    createAuthorSubmit: (newAuthor: IAuthor) => void,
+    authorNameToUpdate: string | null,
+    updateAuthorSubmit: (updatedAuthor: IAuthor) => void
 }
 
 const AuthorForm: React.FC<AuthorFormProps> = (props) => {
-    const {closeButtonClicked, updateClicked, createAuthorSubmit } = props;
+    const {closeButtonClicked, updateClicked, createAuthorSubmit, authorNameToUpdate, updateAuthorSubmit } = props;
 
     const [formValidate, setFormValidate] = useState<boolean>(false);
     const [author, setAuthor] = useState<string | null>(null);
@@ -31,10 +33,19 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
                 closeButtonClicked();
             }
             else {
-                return;
+                const updatedAuthor: IAuthor = {
+                    name: author,
+                };
+                updateAuthorSubmit(updatedAuthor);
+                closeButtonClicked();
             }
         }
     }
+
+    useEffect(() => {
+            setAuthor(authorNameToUpdate);
+    }, [authorNameToUpdate]);
+
     return (
         <Col xs={12} lg={9} className="form mt-4 px-0">
             <Col xs={12}>
@@ -51,7 +62,13 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
                 <Form noValidate validated={formValidate} onSubmit={handleOnSubmit}>
                     <Form.Group>
                         <Form.Label className=" mb-0 ml-1">Name of Author</Form.Label>
-                        <Form.Control size="sm" type="text" required onChange={handleOnAuthorInputChange}/>
+                        {!updateClicked
+                            ? <Form.Control size="sm" type="text" required
+                                             onChange={handleOnAuthorInputChange}/>
+                            : <Form.Control size="sm" type="text" required
+                                            onChange={handleOnAuthorInputChange}
+                                            value={author ? author : ''}/>
+                        }
                         <Form.Control.Feedback type="invalid">Please Enter the Name of Author</Form.Control.Feedback>
                     </Form.Group>
                     <Button className="form-button float-right mt-2 py-1 px-4" type="submit">
