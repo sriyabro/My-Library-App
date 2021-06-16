@@ -4,6 +4,7 @@ import Header from "./Header";
 import NoItemsLabel from "./NoItemsLabel";
 import AddBook from "./book/AddBook";
 import BookList from "./book/BookList";
+import BookForm from "./book/BookForm";
 
 const Books: React.FC = () => {
     return (
@@ -12,6 +13,7 @@ const Books: React.FC = () => {
             <NoItemsLabel message={"No books listed here"} />
             <BookList />
             <AddBook />
+            <BookForm />
         </Row>
     );
 }

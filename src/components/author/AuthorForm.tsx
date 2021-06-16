@@ -25,11 +25,10 @@ const AuthorForm: React.FC = () => {
                             <Form.Control size="sm" type="text" required />
                             <Form.Control.Feedback type="invalid">Please enter the name of author</Form.Control.Feedback>
                         </Form.Group>
-                    <FormButton updateClicked={true} />
+                    <FormButton updateClicked={false} />
                 </Form>
             </Col>
         </Col>
-
     );
 }
 
