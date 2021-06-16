@@ -1,10 +1,10 @@
 import React from 'react';
 import './assets/styles/main.scss'
-import ClientApp from "./ClientApp";
+import Welcome from "./components/Welcome";
 
 function App() {
   return (
-    <ClientApp/>
+    <Welcome/>
   );
 }
 
