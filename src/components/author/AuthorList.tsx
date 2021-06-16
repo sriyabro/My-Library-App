@@ -4,11 +4,12 @@ import Author from "./Author";
 import {IAuthor} from "../../types/Types";
 
 type AuthorListProps = {
-    authors: IAuthor[] | null
+    authors: IAuthor[] | null,
+    onUpdateClick: (index: number) => void
 }
 
 const AuthorList: React.FC<AuthorListProps> = (props) => {
-    const {authors} = props;
+    const {authors, onUpdateClick} = props;
 
     return (
         <Col xs={12}>
@@ -19,6 +20,7 @@ const AuthorList: React.FC<AuthorListProps> = (props) => {
                             <Author key={index}
                                     author={author}
                                     index={index}
+                                    onUpdateClick={onUpdateClick}
                             />
                         </ListGroup.Item>
                     );
