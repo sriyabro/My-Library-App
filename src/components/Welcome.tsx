@@ -12,7 +12,7 @@ const Welcome: React.FC = () => {
                 <Col xs={12} className='mx-0 px-0'>
                     <Image src={WelcomeImg} />
                 </Col>
-                <Col xs={12} className='credits text-right pr-5 pt-1'>
+                <Col xs={12} className='credits text-center text-md-right pr-md-5 pt-1'>
                     Photo by <a href="https://unsplash.com/@annahunko?utm_source=unsplash&utm_medium=referral&utm_
                     content=creditCopyText" rel="noreferrer" target="_blank">
                     Anna Hunko </a>
