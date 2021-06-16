@@ -4,23 +4,23 @@ import { XCircle } from "react-feather";
 import FormButton from "../FormButton";
 import Select from "react-select/base";
 
-const BookForm: React.FC = () => {
-    const [formValidate, setFormValidate] = useState<boolean>(false);
-    const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
-    const [selectorBorderColor, setSelectorBorderColor] = useState<string>("#A5A5A5");
-
-    const options = [
+const options = [
         {value: "Author 1", label: "Author 1"},
         {value: "Author 2", label: "Author 2"},
         {value: "Author 3", label: "Author 3"},
         {value: "Author 4", label: "Author 4"},
     ];
+
+const BookForm: React.FC = () => {
+    const [formValidate, setFormValidate] = useState<boolean>(false);
+    const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
+    const [selectorBorderColor, setSelectorBorderColor] = useState<string>("#A5A5A5");
+
     const customStyles = {
-        control: (provided: any, state: any) => ({
+        control: (provided: any) => ({
             ...provided,
             border: `2px solid ${selectorBorderColor}`,
             borderRadius: '0px',
-            height: '70%',
         }),
     }
 
@@ -48,13 +48,13 @@ const BookForm: React.FC = () => {
                             <Form.Control size="sm" type="text" required />
                             <Form.Control.Feedback type="invalid">Please enter a valid ISBN</Form.Control.Feedback>
                         </Form.Group>
-                    <Form.Group className="mb-2">
+                        <Form.Group className="mb-3">
                             <Form.Label className=" mb-0 ml-1">Author</Form.Label>
                             <Select className="select-control" classNamePrefix="select-control"
-                                isClearable
-                                isSearchable
-                                options={options}
-                                styles={customStyles}
+                                    options={options}
+                                    styles={customStyles}
+                                    isClearable
+                                    sisSearchable
                               />
                             <Form.Control.Feedback type="invalid">Please enter a valid ISBN</Form.Control.Feedback>
                         </Form.Group>
