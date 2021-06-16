@@ -4,11 +4,12 @@ import { Edit, Trash2 } from "react-feather";
 import {IAuthor} from "../../types/Types";
 
 type AuthorProps = {
-    author: IAuthor
-    index: number
+    author: IAuthor,
+    index: number,
+    onUpdateClick: (index: number) => void
 }
 const Author: React.FC<AuthorProps> = (props) => {
-    const {author, index} = props;
+    const {author, index, onUpdateClick} = props;
 
     return (
         <Row className="item-row pt-2 pb-1">
@@ -16,7 +17,7 @@ const Author: React.FC<AuthorProps> = (props) => {
                 <h5>{index+1}. {author.name}</h5>
             </Col>
             <Col xs={4} className="text-right px-0">
-                <Edit className="icon mx-2 text-warning" size={20}/>
+                <Edit className="icon mx-2 text-warning" size={20} onClick={()=> {onUpdateClick(index)}}/>
                 <Trash2 className="icon mx-2 text-danger" size={20}/>
             </Col>
         </Row>
