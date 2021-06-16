@@ -14,10 +14,10 @@ const Welcome: React.FC = () => {
                 </Col>
                 <Col xs={12} className='credits text-right pr-5 pt-1'>
                     Photo by <a href="https://unsplash.com/@annahunko?utm_source=unsplash&utm_medium=referral&utm_
-                    content=creditCopyText" rel="noreferrer" target="_blank">
+                    content=creditCopyText">
                     Anna Hunko </a>
                     on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_
-                    content=creditCopyText" rel="noreferrer" target="_blank">
+                    content=creditCopyText">
                     Unsplash </a>
                 </Col>
             </Row>

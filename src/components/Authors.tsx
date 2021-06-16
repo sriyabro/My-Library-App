@@ -1,13 +1,11 @@
 import React from "react";
-import {Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import Header from "./Header";
-import NoItemsLabel from "./NoItemsLabel";
 
 const Authors: React.FC = () => {
     return (
-        <Row className="authors">
+        <Row>
             <Header header="Authors" />
-            <NoItemsLabel message={"No authors listed here"} />
         </Row>
     );
 }
