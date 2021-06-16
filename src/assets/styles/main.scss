@@ -5,7 +5,8 @@
   padding: 0;
   margin: 0;
   font-family: 'Raleway', sans-serif;
+  color: $font-color;
 }
 
 @import 'partials/welcome';
-@import 'partials/library_body';
+@import 'partials/header';

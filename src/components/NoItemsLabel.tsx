@@ -7,7 +7,7 @@ type LabelProps = {
 
 const NoItemsLabel: React.FC<LabelProps> = (props) => {
     return (
-            <Col xs={12} className="mt-3 pl-0 font-italic no-items-label">
+            <Col className="mt-3 pl-0 font-italic">
                 <label>{props.message}</label>
             </Col>
     );
