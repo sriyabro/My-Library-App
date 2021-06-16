@@ -10,7 +10,7 @@ const ClientApp: React.FC = () => {
                 <Col xs={12} >
                     <Welcome />
                 </Col>
-                <Col xs={12}>
+                <Col xs={12} >
                     <LibraryBody />
                 </Col>
             </Row>
