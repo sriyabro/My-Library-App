@@ -1,19 +1,9 @@
-@import './variables';
+h1 {
+  font-weight: 700;
+  color: $welcome-h1-color;
+}
 
-.welcome {
-  h1 {
-    font-weight: 700;
-    font-size: 3em;
-    color: $font-color;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-
-  .credits {
-    font-weight: 500;
-  }
-
+img {
+  width: 100%;
+  height: auto;
 }
