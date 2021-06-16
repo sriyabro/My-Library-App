@@ -6,10 +6,10 @@ import Books from "./Books";
 const LibraryBody: React.FC = () => {
     return (
         <Row className="library-body mt-4">
-            <Col xs={12} md={6} className="px-5 mb-5">
+            <Col xs={12} md={6} className="px-5">
                 <Books />
             </Col>
-            <Col xs={12} md={6} className="px-5 mb-5">
+            <Col xs={12} md={6} className="px-5">
                 <Authors />
             </Col>
         </Row>
