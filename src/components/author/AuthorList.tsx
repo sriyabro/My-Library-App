@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, ListGroup} from "react-bootstrap";
+import { Col, ListGroup } from "react-bootstrap";
 import Author from "./Author";
 
 const AuthorList: React.FC = () => {
