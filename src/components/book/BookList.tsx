@@ -1,11 +1,14 @@
 import React from "react";
-import {Col, ListGroup} from "react-bootstrap";
+import { Col, ListGroup } from "react-bootstrap";
+import Book from "./Book";
 
 const BookList: React.FC = () => {
     return (
-        <Col xs={12} className="book-list mx-0 p-0">
+        <Col xs={12}>
             <ListGroup className="mx-0">
-                <ListGroup.Item className="px-0 border-0"><h5>1. Book</h5></ListGroup.Item>
+                <ListGroup.Item className="p-0 border-0">
+                    <Book />
+                </ListGroup.Item>
             </ListGroup>
         </Col>
     );
