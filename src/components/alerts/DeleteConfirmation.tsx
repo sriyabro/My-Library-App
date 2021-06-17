@@ -13,7 +13,7 @@ const DeleteConfirmation: React.FC<DeleteConfirmationProps> = (props) => {
     const  {show, type, item, handleDelete, handleClose} = props;
 
     return (
-        <Modal size="sm" show={show} onHide={handleClose} animation={false}>
+        <Modal show={show} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
                   <Modal.Title>Delete {type}</Modal.Title>
             </Modal.Header>
