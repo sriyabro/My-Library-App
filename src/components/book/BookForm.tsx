@@ -17,7 +17,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
     const [ISBN, setISBN] = useState<string | null>(null);
     const [bookAuthor, setBookAuthor] = useState<IAuthor | null>(null);
     const [formValidate, setFormValidate] = useState<boolean>(false);
-    const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
+    const [selectedAuthor, setSelectedAuthor] = useState<IAuthor | null>(null);
     const [selectorOptions, setSelectorOptions] = useState<ISelector | null>(null);
     const [selectorBorderColor, setSelectorBorderColor] = useState<string>("#A5A5A5");
 
@@ -31,7 +31,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
 
     const handleBookNameChange = (e: ChangeEvent<HTMLInputElement>) => setBookName(e.target.value);
     const handleISBNChange = (e: ChangeEvent<HTMLInputElement>) => setISBN(e.target.value);
-    const handleBookAuthorChange = (e: ValueType<ISelector, false>) => {
+    const handleBookAuthorChange = (option: ValueType<ISelector, false>) => {
         if (option) {
             setSelectedAuthor(option.value);
             if (selectorValidate) {
