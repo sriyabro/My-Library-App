@@ -9,8 +9,14 @@ import {IAlert, IAuthor} from "../types/Types";
 import DeleteConfirmation from "./alerts/DeleteConfirmation";
 import ConfirmationAlert from "./alerts/ConfirmationAlert";
 
-const Authors: React.FC = () => {
-    const [authors, setAuthors] = useState<IAuthor[] | null>(null);
+type AuthorsProps = {
+    authors: IAuthor[] | null,
+    onAuthorsChange: (authors: IAuthor[]) => void
+}
+
+const Authors: React.FC<AuthorsProps> = (props) => {
+    const {authors, onAuthorsChange} = props;
+
     const [showAuthorForm, setShowAuthorForm] = useState<boolean>(false);
     const [updateClicked, setUpdateClicked] = useState<boolean>(false);
     const [indexToUpdate, setIndexToUpdate] = useState<number | null>(null);
@@ -34,7 +40,7 @@ const Authors: React.FC = () => {
     const handleCreateAuthorSubmit = (newAuthor: IAuthor) => {
         const newAuthorList: IAuthor[] = authors ? authors.slice() : [];
         newAuthorList.push(newAuthor);
-        setAuthors(newAuthorList);
+        onAuthorsChange(newAuthorList);
         setAlertContent({message:"Author Created Successfully", variant:"success"});
         setShowAlertMessage(true);
     }
@@ -58,7 +64,7 @@ const Authors: React.FC = () => {
         }
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
         newAuthorList.splice(indexToUpdate, 1, updatedAuthor);
-        setAuthors(newAuthorList);
+        onAuthorsChange(newAuthorList);
         setAlertContent({message:"Author Updated Successfully", variant:"warning"});
         setShowAlertMessage(true);
     }
@@ -84,7 +90,7 @@ const Authors: React.FC = () => {
         }
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
         newAuthorList.splice(indexToDelete, 1);
-        setAuthors(newAuthorList);
+        onAuthorsChange(newAuthorList);
         setShowDeleteValidation(false);
         setAlertContent({message:"Author Deleted Successfully", variant:"danger"});
         setShowAlertMessage(true);
