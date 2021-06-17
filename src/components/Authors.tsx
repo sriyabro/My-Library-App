@@ -5,8 +5,9 @@ import NoItemsLabel from "./NoItemsLabel";
 import AuthorList from "./author/AuthorList";
 import AddAuthor from "./author/AddAuthor";
 import AuthorForm from "./author/AuthorForm";
-import {IAuthor} from "../types/Types";
+import {IAlert, IAuthor} from "../types/Types";
 import DeleteConfirmation from "./alerts/DeleteConfirmation";
+import ConfirmationAlert from "./alerts/ConfirmationAlert";
 
 const Authors: React.FC = () => {
     const [authors, setAuthors] = useState<IAuthor[] | null>(null);
@@ -17,6 +18,8 @@ const Authors: React.FC = () => {
     const [indexToDelete, setIndexToDelete] = useState<number | null>(null);
     const [authorNameToDelete, setAuthorNameToDelete] = useState<string | null>(null);
     const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
+    const [alertContent, setAlertContent] = useState<IAlert | null>(null);
+    const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);
 
     const handleAddAuthorClicked = () => {
         setUpdateClicked(false);
@@ -32,6 +35,8 @@ const Authors: React.FC = () => {
         const newAuthorList: IAuthor[] = authors ? authors.slice() : [];
         newAuthorList.push(newAuthor);
         setAuthors(newAuthorList);
+        setAlertContent({message:"Author Created Successfully", variant:"success"});
+        setShowAlertMessage(true);
     }
 
     const handleOnUpdateClick = (index: number) => {
@@ -54,11 +59,14 @@ const Authors: React.FC = () => {
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
         newAuthorList.splice(indexToUpdate, 1, updatedAuthor);
         setAuthors(newAuthorList);
+        setAlertContent({message:"Author Updated Successfully", variant:"warning"});
+        setShowAlertMessage(true);
     }
 
     const handleOnDeleteClick = (index: number) => {
         setIndexToDelete(index);
         setShowDeleteValidation(true);
+        setShowAuthorForm(false);
     }
 
     useEffect(() => {
@@ -78,18 +86,21 @@ const Authors: React.FC = () => {
         newAuthorList.splice(indexToDelete, 1);
         setAuthors(newAuthorList);
         setShowDeleteValidation(false);
+        setAlertContent({message:"Author Deleted Successfully", variant:"danger"});
+        setShowAlertMessage(true);
     }
 
     return (
         <React.Fragment>
         <Row className="authors">
             <Header header="Authors" />
-            {(!authors || authors.length === 0) && <NoItemsLabel message={"No authors listed here"}/>}
+            {(!authors || authors.length === 0) && <NoItemsLabel message={"No authors listed here"} />}
             {authors && <AuthorList authors={authors}
                                     onUpdateClick={handleOnUpdateClick}
                                     onDeleteClick={handleOnDeleteClick}
             />}
             <AddAuthor addAuthorClicked={handleAddAuthorClicked}/>
+            <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage} />
             {showAuthorForm && <AuthorForm closeButtonClicked={handleCloseButtonClicked}
                                            createAuthorSubmit={handleCreateAuthorSubmit}
                                             updateClicked={updateClicked}
