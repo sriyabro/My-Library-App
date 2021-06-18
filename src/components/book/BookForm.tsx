@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
-import Select from "react-select/base";
+import Select from "react-select";
 import {IAuthor, IBook, ISelector} from "../../types/Types";
 import {ValueType} from "react-select";
 
@@ -19,7 +19,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
 
     const [bookName, setBookName] = useState<string>('');
     const [bookISBN, setBookISBN] = useState<string>('');
-    const [selectedAuthor, setSelectedAuthor] = useState<IAuthor | null>({name: "author"});
+    const [selectedAuthor, setSelectedAuthor] = useState<IAuthor | null>(null);
     const [formValidate, setFormValidate] = useState<boolean>(false);
     const [selectorValidate, setSelectorValidate] = useState<boolean>(false);
     const [selectorOptions, setSelectorOptions] = useState<ISelector[] | null>(null);
@@ -54,7 +54,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
             return;
         }
         let options: ISelector[] | null = [];
-        authors.map((author: IAuthor) => {
+        authors.forEach((author: IAuthor) => {
             options?.push({
                 label: author.name,
                 value: author
@@ -135,8 +135,8 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                         <Form.Label className=" mb-0 ml-1">Author</Form.Label>
                         <Select className="select-control" classNamePrefix="select-control"
                                 isSearchable
-                                options={!selectorOptions ? [] : selectorOptions}
                                 isClearable
+                                options={!selectorOptions ? [] : selectorOptions}
                                 styles={customStyles}
                                 onChange={handleBookAuthorChange}
                         />
