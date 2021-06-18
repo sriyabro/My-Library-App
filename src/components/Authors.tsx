@@ -23,7 +23,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
     const [authorNameToUpdate, setAuthorNameToUpdate] = useState<string | null>(null);
     const [indexToDelete, setIndexToDelete] = useState<number | null>(null);
     const [authorNameToDelete, setAuthorNameToDelete] = useState<string | null>(null);
-    const [showDeleteValidation, setShowDeleteValidation] = useState<boolean>(false);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
     const [alertContent, setAlertContent] = useState<IAlert | null>(null);
     const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);
 
@@ -71,7 +71,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
 
     const handleOnDeleteClick = (index: number) => {
         setIndexToDelete(index);
-        setShowDeleteValidation(true);
+        setShowDeleteConfirmation(true);
         setShowAuthorForm(false);
     }
 
@@ -82,7 +82,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         setAuthorNameToDelete(authors[indexToDelete].name);
     }, [indexToDelete]);
 
-    const handleDeleteValidationClose = () => setShowDeleteValidation(false);
+    const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
     const handleDeleteValidationConfirm = () => {
         if (indexToDelete == null) {
@@ -91,7 +91,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
         newAuthorList.splice(indexToDelete, 1);
         onAuthorsChange(newAuthorList);
-        setShowDeleteValidation(false);
+        setShowDeleteConfirmation(false);
         setAlertContent({message:"Author Deleted Successfully", variant:"danger"});
         setShowAlertMessage(true);
     }
@@ -114,7 +114,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
                                             updateAuthorSubmit={handleUpdateAuthorSubmit}
             />}
         </Row>
-            <DeleteConfirmation show={showDeleteValidation}
+            <DeleteConfirmation show={showDeleteConfirmation}
                                 type={"Author"}
                                 item={authorNameToDelete ? authorNameToDelete : 'this item'}
                                 handleDelete={handleDeleteValidationConfirm}

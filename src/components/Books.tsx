@@ -7,6 +7,7 @@ import BookList from "./book/BookList";
 import BookForm from "./book/BookForm";
 import {IAlert, IAuthor, IBook} from "../types/Types";
 import ConfirmationAlert from "./alerts/ConfirmationAlert";
+import DeleteConfirmation from "./alerts/DeleteConfirmation";
 
 type BooksProps = {
     authors: IAuthor[] | null
@@ -22,6 +23,9 @@ const Books: React.FC<BooksProps> = (props) => {
     const [bookToUpdate, setBookToUpdate] = useState<IBook | null>(null);
     const [alertContent, setAlertContent] = useState<IAlert | null>(null);
     const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);
+    const [indexToDelete, setIndexToDelete] = useState<number | null>(null);
+    const [bookNameToDelete, setBookNameToDelete] =useState<string | null>(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
     useEffect(() => {
         setBooks(books);
@@ -33,12 +37,12 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowBookForm(true);
     }
     const handleCloseButtonClicked = () => setShowBookForm(false);
-    const handleOnUpdateClick = (index: number) => {
-        setUpdateClicked(true);
-        setIndexToUpdate(index);
-        setShowBookForm(true);
-    }
 
+    const handleOnDeleteClick = (index: number) => {
+        setIndexToDelete(index);
+        setShowDeleteConfirmation(true);
+        setShowBookForm(false);
+    }
 
     const handleCreateBook = (newBook: IBook) => {
         const newBookList: IBook[] = books ? books.slice() : [];
@@ -66,11 +70,39 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowAlertMessage(true);
     }
 
+    const handleOnUpdateClick = (index: number) => {
+        setUpdateClicked(true);
+        setIndexToUpdate(index);
+        setShowBookForm(true);
+    }
+
+    useEffect(() => {
+        if (!books || indexToDelete === null) {
+            return;
+        }
+        setBookNameToDelete(books[indexToDelete].name);
+    }, [indexToDelete]);
+
+    const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
+
+    const handleDeleteValidationConfirm = () => {
+        if (indexToDelete == null) {
+            return;
+        }
+        const newBookList: IBook[] = books? books.slice() : [];
+        newBookList.splice(indexToDelete, 1);
+        setBooks(newBookList);
+        setShowDeleteConfirmation(false);
+        setAlertContent({message:"Book Deleted Successfully", variant:"danger"});
+        setShowAlertMessage(true);
+    }
+
     return (
+        <React.Fragment>
         <Row className="books">
             <Header header="Books"/>
             {(!books || books.length === 0) && <NoItemsLabel message={"No books listed here"}/>}
-            {books && <BookList books={books} onUpdateClick={handleOnUpdateClick}/>}
+            {books && <BookList books={books} onUpdateClick={handleOnUpdateClick} onDeleteClick={handleOnDeleteClick}/>}
             <AddBook addBookClicked={handleAddBookClicked}/>
             <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage}/>
             {showBookForm && <BookForm authors={authors}
@@ -81,6 +113,13 @@ const Books: React.FC<BooksProps> = (props) => {
                                        updateBookSubmit={handleUpdateBook}
             />}
         </Row>
+        <DeleteConfirmation show={showDeleteConfirmation}
+                                type={"Book"}
+                                item={bookNameToDelete ? bookNameToDelete : 'this item'}
+                                handleDelete={handleDeleteValidationConfirm}
+                                handleClose={handleDeleteValidationClose}
+            />
+        </React.Fragment>
     );
 }
 
