@@ -10,16 +10,18 @@ type BookFormProps = {
     closeButtonClicked: () => void
     updateClicked: boolean
     createBookSubmit: (newBook: IBook) => void
+    bookToUpdate: IBook | null
+    updateBookSubmit: (updatedBook: IBook) => void
 }
 
 const BookForm: React.FC<BookFormProps> = (props) => {
-    const {authors, closeButtonClicked, updateClicked, createBookSubmit} = props;
+    const {authors, closeButtonClicked, updateClicked, createBookSubmit, bookToUpdate, updateBookSubmit} = props;
 
-    const [bookName, setBookName] = useState<string | null>(null);
-    const [ISBN, setISBN] = useState<string | null>(null);
+    const [bookName, setBookName] = useState<string>('');
+    const [bookISBN, setBookISBN] = useState<string>('');
     const [selectedAuthor, setSelectedAuthor] = useState<IAuthor | null>({name: "author"});
     const [formValidate, setFormValidate] = useState<boolean>(false);
-    const [selectorValidate, setSelectorValidate] = useState<boolean>(true);
+    const [selectorValidate, setSelectorValidate] = useState<boolean>(false);
     const [selectorOptions, setSelectorOptions] = useState<ISelector[] | null>(null);
     const [selectorBorderColor, setSelectorBorderColor] = useState<string>("#A5A5A5");
 
@@ -32,7 +34,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
     }
 
     const handleBookNameChange = (e: ChangeEvent<HTMLInputElement>) => setBookName(e.target.value);
-    const handleISBNChange = (e: ChangeEvent<HTMLInputElement>) => setISBN(e.target.value);
+    const handleISBNChange = (e: ChangeEvent<HTMLInputElement>) => setBookISBN(e.target.value);
     const handleBookAuthorChange = (option: ValueType<ISelector, false>) => {
         if (option) {
             setSelectedAuthor(option.value);
@@ -62,9 +64,16 @@ const BookForm: React.FC<BookFormProps> = (props) => {
         setSelectorOptions(options);
     }, [authors]);
 
+    useEffect(() => {
+        if (bookToUpdate === null) return;
+        setBookName(bookToUpdate?.name);
+        setBookISBN(bookToUpdate?.ISBN);
+        setSelectedAuthor(bookToUpdate?.author);
+    },[bookToUpdate]);
+
     const handleOnSubmit = (e: FormEvent) => {
         e.preventDefault();
-        if (selectedAuthor === null || bookName === '' || !bookName || ISBN === '' || !ISBN) {
+        if (selectedAuthor === null || bookName === '' || !bookName || bookISBN === '' || !bookISBN) {
             setFormValidate(true);
             setSelectorValidate(true);
         }
@@ -72,14 +81,24 @@ const BookForm: React.FC<BookFormProps> = (props) => {
             if (!updateClicked) {
                 const newBook: IBook = {
                     name: bookName,
-                    ISBN: ISBN,
+                    ISBN: bookISBN,
                     author: selectedAuthor
                 };
                 createBookSubmit(newBook);
                 closeButtonClicked();
+                setBookName('');
+                setBookISBN('');
             }
             else {
-
+                const updatedBook: IBook = {
+                    name: bookName,
+                    ISBN: bookISBN,
+                    author: selectedAuthor
+                };
+                updateBookSubmit(updatedBook);
+                closeButtonClicked();
+                setBookName('');
+                setBookISBN('');
             }
         }
     }
@@ -100,22 +119,26 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                 <Form noValidate validated={formValidate} onSubmit={handleOnSubmit}>
                     <Form.Group className="mb-2">
                         <Form.Label className="mb-0 ml-1">Title of the Book</Form.Label>
-                        <Form.Control size="sm" type="text" onChange={handleBookNameChange} required/>
+                        {!updateClicked
+                            ? <Form.Control size="sm" type="text" onChange={handleBookNameChange} required/>
+                            : <Form.Control size="sm" type="text" onChange={handleBookNameChange} value={bookName} required/>}
                         <Form.Control.Feedback type="invalid">Please Enter the Title of the Book</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-2">
                         <Form.Label className=" mb-0 ml-1">ISBN</Form.Label>
-                        <Form.Control size="sm" type="text" onChange={handleISBNChange} required/>
+                        {!updateClicked
+                            ? <Form.Control size="sm" type="text" onChange={handleISBNChange} required/>
+                            : <Form.Control size="sm" type="text" onChange={handleISBNChange} value={bookISBN} required/>}
                         <Form.Control.Feedback type="invalid">Please Enter a Valid ISBN</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label className=" mb-0 ml-1">Author</Form.Label>
-                        <Select className="select-control"
-                            isSearchable
-                            options={!selectorOptions ? [] : selectorOptions}
-                            isClearable
-                            styles={customStyles}
-                            onChange={handleBookAuthorChange}
+                        <Select className="select-control" classNamePrefix="select-control"
+                                isSearchable
+                                options={!selectorOptions ? [] : selectorOptions}
+                                isClearable
+                                styles={customStyles}
+                                onChange={handleBookAuthorChange}
                         />
                         {selectorValidate && <small className="invalid-feedback text-danger" style={{'display': 'block'}}>Please Select an
                             Author Name</small>}
