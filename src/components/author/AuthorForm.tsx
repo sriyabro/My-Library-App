@@ -63,9 +63,9 @@ const AuthorForm: React.FC<AuthorFormProps> = (props) => {
                     <Form.Group>
                         <Form.Label className=" mb-0 ml-1">Name of Author</Form.Label>
                         {!updateClicked
-                            ? <Form.Control size="sm" type="text" required
+                            ? <Form.Control size="sm" type="text" required autoFocus
                                              onChange={handleOnAuthorInputChange}/>
-                            : <Form.Control size="sm" type="text" required
+                            : <Form.Control size="sm" type="text" required autoFocus
                                             onChange={handleOnAuthorInputChange}
                                             value={author ? author : ''}/>
                         }

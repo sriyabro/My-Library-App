@@ -120,8 +120,8 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                     <Form.Group className="mb-2">
                         <Form.Label className="mb-0 ml-1">Title of the Book</Form.Label>
                         {!updateClicked
-                            ? <Form.Control size="sm" type="text" onChange={handleBookNameChange} required/>
-                            : <Form.Control size="sm" type="text" onChange={handleBookNameChange} value={bookName} required/>}
+                            ? <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus required/>
+                            : <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus value={bookName} required/>}
                         <Form.Control.Feedback type="invalid">Please Enter the Title of the Book</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-2">
