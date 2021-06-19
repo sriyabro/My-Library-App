@@ -69,36 +69,37 @@ const BookForm: React.FC<BookFormProps> = (props) => {
         setBookName(bookToUpdate?.name);
         setBookISBN(bookToUpdate?.ISBN);
         setSelectedAuthor(bookToUpdate?.author);
-    },[bookToUpdate]);
+    }, [bookToUpdate]);
 
     const handleOnSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (selectedAuthor === null || bookName === '' || !bookName || bookISBN === '' || !bookISBN) {
             setFormValidate(true);
             setSelectorValidate(true);
-        }
-        else {
+        } else {
             if (!updateClicked) {
                 const newBook: IBook = {
                     name: bookName,
                     ISBN: bookISBN,
                     author: selectedAuthor
                 };
-                createBookSubmit(newBook);
-                closeButtonClicked();
                 setBookName('');
                 setBookISBN('');
-            }
-            else {
+                setSelectedAuthor(null);
+                createBookSubmit(newBook);
+                closeButtonClicked();
+
+            } else {
                 const updatedBook: IBook = {
                     name: bookName,
                     ISBN: bookISBN,
                     author: selectedAuthor
                 };
-                updateBookSubmit(updatedBook);
-                closeButtonClicked();
                 setBookName('');
                 setBookISBN('');
+                setSelectedAuthor(null);
+                updateBookSubmit(updatedBook);
+                closeButtonClicked();
             }
         }
     }
@@ -121,14 +122,16 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                         <Form.Label className="mb-0 ml-1">Title of the Book</Form.Label>
                         {!updateClicked
                             ? <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus required/>
-                            : <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus value={bookName} required/>}
+                            : <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus
+                                            value={bookName} required/>}
                         <Form.Control.Feedback type="invalid">Please Enter the Title of the Book</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-2">
                         <Form.Label className=" mb-0 ml-1">ISBN</Form.Label>
                         {!updateClicked
                             ? <Form.Control size="sm" type="text" onChange={handleISBNChange} required/>
-                            : <Form.Control size="sm" type="text" onChange={handleISBNChange} value={bookISBN} required/>}
+                            :
+                            <Form.Control size="sm" type="text" onChange={handleISBNChange} value={bookISBN} required/>}
                         <Form.Control.Feedback type="invalid">Please Enter a Valid ISBN</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -139,8 +142,10 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                                 options={!selectorOptions ? [] : selectorOptions}
                                 styles={customStyles}
                                 onChange={handleBookAuthorChange}
+                                value={updateClicked ? selectorOptions?.filter(option => option.label === selectedAuthor?.name) : null}
                         />
-                        {selectorValidate && <small className="invalid-feedback text-danger" style={{'display': 'block'}}>Please Select an
+                        {selectorValidate &&
+                        <small className="invalid-feedback text-danger" style={{'display': 'block'}}>Please Select an
                             Author Name</small>}
                     </Form.Group>
                     <Button className="form-button float-right mt-2 py-1 px-4" type="submit">
