@@ -66,6 +66,8 @@ const Books: React.FC<BooksProps> = (props) => {
         const newBookList: IBook[] = books ? books.slice() : [];
         newBookList.splice(indexToUpdate, 1, updatedBook);
         setBooks(newBookList);
+        setIndexToUpdate(null);
+        setBookToUpdate(null);
         setAlertContent({message: "Book Updated Successfully", variant: "warning"});
         setShowAlertMessage(true);
     }
