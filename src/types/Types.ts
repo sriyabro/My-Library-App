@@ -5,6 +5,7 @@ export interface IAuthor {
 export interface IBook {
     name: string
     ISBN: string
+    price: number
     author: IAuthor
 }
 
