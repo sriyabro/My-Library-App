@@ -1,13 +1,11 @@
 export interface IAuthor {
-    id?: number
     name: string
 }
 
 export interface IBook {
-    id?: number
     name: string
     ISBN: string
-    price: string
+    price: number
     author: IAuthor
 }
 
