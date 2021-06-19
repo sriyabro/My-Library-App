@@ -66,14 +66,19 @@
       border: 2px solid $input-border-color;
     }
 
+    .input-field {
+      height: calc(1.5em + 0.5rem);
+      min-height: calc(1.5em + 0.5rem);
+    }
+
     .invalid-feedback {
       font-size: .6em;
       font-weight: 600;
     }
 
     .select-control__control {
-      height: calc(1.5em + 0.5rem + 2px);
-      min-height: calc(1.5em + 0.5rem + 2px);
+      height: calc(1.5em + 0.5rem);
+      min-height: calc(1.5em + 0.5rem);
       align-content: center;
     }
 
