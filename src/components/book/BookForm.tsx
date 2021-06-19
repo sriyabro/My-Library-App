@@ -83,12 +83,11 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                     ISBN: bookISBN,
                     author: selectedAuthor
                 };
+                createBookSubmit(newBook);
+                closeButtonClicked();
                 setBookName('');
                 setBookISBN('');
                 setSelectedAuthor(null);
-                createBookSubmit(newBook);
-                closeButtonClicked();
-
             } else {
                 const updatedBook: IBook = {
                     name: bookName,
@@ -123,27 +122,37 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                         {!updateClicked
                             ? <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus required/>
                             : <Form.Control size="sm" type="text" onChange={handleBookNameChange} autoFocus
-                                            value={bookName} required/>}
+                                            value={bookName} required/>
+                        }
                         <Form.Control.Feedback type="invalid">Please Enter the Title of the Book</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-2">
                         <Form.Label className=" mb-0 ml-1">ISBN</Form.Label>
                         {!updateClicked
                             ? <Form.Control size="sm" type="text" onChange={handleISBNChange} required/>
-                            :
-                            <Form.Control size="sm" type="text" onChange={handleISBNChange} value={bookISBN} required/>}
+                            : <Form.Control size="sm" type="text" onChange={handleISBNChange}
+                                            value={bookISBN} required/>
+                        }
                         <Form.Control.Feedback type="invalid">Please Enter a Valid ISBN</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label className=" mb-0 ml-1">Author</Form.Label>
-                        <Select className="select-control" classNamePrefix="select-control"
-                                isSearchable
-                                isClearable
-                                options={!selectorOptions ? [] : selectorOptions}
-                                styles={customStyles}
-                                onChange={handleBookAuthorChange}
-                                value={updateClicked ? selectorOptions?.filter(option => option.label === selectedAuthor?.name) : null}
-                        />
+                        {updateClicked
+                            ? <Select className="select-control" classNamePrefix="select-control"
+                                      isSearchable
+                                      isClearable
+                                      options={!selectorOptions ? [] : selectorOptions}
+                                      styles={customStyles}
+                                      onChange={handleBookAuthorChange}
+                                      value={selectorOptions?.filter(option => option.label === selectedAuthor?.name)}
+                            />
+                            : <Select className="select-control" classNamePrefix="select-control"
+                                      isSearchable
+                                      isClearable
+                                      options={!selectorOptions ? [] : selectorOptions}
+                                      styles={customStyles}
+                                      onChange={handleBookAuthorChange}
+                            />}
                         {selectorValidate &&
                         <small className="invalid-feedback text-danger" style={{'display': 'block'}}>Please Select an
                             Author Name</small>}
