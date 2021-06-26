@@ -40,6 +40,7 @@ const Books: React.FC<BooksProps> = (props) => {
 
     const handleOnDeleteClick = (index: number) => {
         setIndexToDelete(index);
+        setBookNameToDelete(books ? books[index].name : null);
         setShowDeleteConfirmation(true);
         setShowBookForm(false);
     }
@@ -52,12 +53,12 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowAlertMessage(true);
     }
 
-    useEffect(() => {
-        if (indexToUpdate === null || !books) {
-            return;
-        }
-        setBookToUpdate(books[indexToUpdate]);
-    }, [indexToUpdate])
+    // useEffect(() => {
+    //     if (indexToUpdate === null || !books) {
+    //         return;
+    //     }
+    //     setBookToUpdate(books[indexToUpdate]);
+    // }, [indexToUpdate])
 
     const handleUpdateBook = (updatedBook: IBook) => {
         if (indexToUpdate === null) {
@@ -75,15 +76,16 @@ const Books: React.FC<BooksProps> = (props) => {
     const handleOnUpdateClick = (index: number) => {
         setUpdateClicked(true);
         setIndexToUpdate(index);
+        setBookToUpdate(books ? books[index] : null);
         setShowBookForm(true);
     }
 
-    useEffect(() => {
-        if (!books || indexToDelete === null) {
-            return;
-        }
-        setBookNameToDelete(books[indexToDelete].name);
-    }, [indexToDelete]);
+    // useEffect(() => {
+    //     if (!books || indexToDelete === null) {
+    //         return;
+    //     }
+    //     setBookNameToDelete(books[indexToDelete].name);
+    // }, [indexToDelete]);
 
     const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
