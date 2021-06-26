@@ -76,7 +76,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
     if (bookToUpdate === null) return;
     setBookName(bookToUpdate?.name);
     setBookISBN(bookToUpdate?.ISBN);
-    setBookPrice(bookToUpdate?.price.toString());
+    setBookPrice(bookToUpdate?.price);
     setSelectedAuthor(bookToUpdate?.author);
   }, [bookToUpdate]);
 
@@ -91,7 +91,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
       const newBook: IBook = {
         name: bookName,
         ISBN: bookISBN,
-        price: parseFloat(booKPrice),
+        price: booKPrice,
         author: selectedAuthor
       };
       createBookSubmit(newBook);
@@ -102,7 +102,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
       const updatedBook: IBook = {
         name: bookName,
         ISBN: bookISBN,
-        price: parseFloat(booKPrice),
+        price: booKPrice,
         author: selectedAuthor
       };
       updateBookSubmit(updatedBook);
@@ -161,7 +161,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
                     isSearchable
                     isClearable
                     placeholder={null}
-                    noOptionsMessage={({ inputValue: string }) => ("No options here, Please Create an Author")}
+                    noOptionsMessage={() => ("No options here, Please Create an Author")}
                     options={!selectorOptions ? [] : selectorOptions}
                     styles={customStyles}
                     onChange={handleBookAuthorChange}
