@@ -118,13 +118,13 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         <React.Fragment>
         <Row className="authors">
             <Header header="Authors" />
+            <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage} />
             {(!authors || authors.length === 0) && <NoItemsLabel message={"No authors listed here"} />}
             {authors && <AuthorList authors={authors}
                                     onUpdateClick={handleOnUpdateClick}
                                     onDeleteClick={handleOnDeleteClick}
             />}
             <AddAuthor addAuthorClicked={handleAddAuthorClicked}/>
-            <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage} />
             {showAuthorForm && <AuthorForm closeButtonClicked={handleCloseButtonClicked}
                                            createAuthorSubmit={handleCreateAuthorSubmit}
                                             updateClicked={updateClicked}

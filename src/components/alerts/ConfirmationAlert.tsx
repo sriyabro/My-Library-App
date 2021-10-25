@@ -27,7 +27,7 @@ const ConfirmationAlert: React.FC<AlertProps> = (props) => {
     return (
         <React.Fragment>
             {showAlert && alertMessage &&
-                <Col xs={12} className="text-center">
+                <Col xs={12} className="text-center mt-2">
                     <Alert variant={alertMessage.variant} >
                                <h6 className="mb-0"><Check size={20} className="mr-2"/>{alertMessage.message}</h6>
                 </Alert>
