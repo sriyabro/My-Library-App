@@ -15,7 +15,7 @@ const BookList: React.FC<BookListProps> = (props) => {
 
     return (
         <Col xs={12}>
-            {books && <ListGroup className="mx-0 mt-4">
+            {books && <ListGroup className="ml-0 ml-md-4 mt-4">
                 {books.map((book: IBook, index: number) => {
                     return (
                         <ListGroup.Item className="p-0 border-0" key={index}>
