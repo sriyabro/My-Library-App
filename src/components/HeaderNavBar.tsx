@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
+import {Search} from "react-feather";
 
 const HeaderNavBar: React.FC = () => {
   const history = useHistory();
@@ -19,6 +20,7 @@ const HeaderNavBar: React.FC = () => {
           <h3 className="nav ml-5" onClick={() => handleNavClicked('authors')}>Authors</h3>
           <h3 className="nav ml-5" onClick={() => handleNavClicked('books')}>Books</h3>
           <h3 className="nav ml-5" onClick={() => handleNavClicked('about')}>About</h3>
+          <Search className="nav ml-5"/>
         </Col>
       </Row>
     </React.Fragment>
