@@ -1,13 +1,13 @@
 @import './variables';
 
+h1 {
+  font-weight: 700;
+  font-size: 3em;
+  color: $font-color;
+
+}
+
 .welcome {
-  h1 {
-    font-weight: 700;
-    font-size: 3em;
-    color: $font-color;
-
-  }
-
   img {
     width: 100%;
     height: auto;

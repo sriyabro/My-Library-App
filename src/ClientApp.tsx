@@ -7,6 +7,9 @@ const ClientApp: React.FC = () => {
     return (
         <Container fluid={true}>
             <Row>
+                <Col xs={12} className='text-center my-2'>
+                    <h1>My Library</h1>
+                </Col>
                 <Col xs={12} >
                     <Welcome />
                 </Col>
