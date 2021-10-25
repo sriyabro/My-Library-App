@@ -107,10 +107,10 @@ const Books: React.FC<BooksProps> = (props) => {
         <React.Fragment>
         <Row className="books">
             <Header header="Books"/>
+            <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage}/>
             {(!books || books.length === 0) && <NoItemsLabel message={"No books listed here"}/>}
             {books && <BookList books={books} onUpdateClick={handleOnUpdateClick} onDeleteClick={handleOnDeleteClick}/>}
             <AddBook addBookClicked={handleAddBookClicked}/>
-            <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage}/>
             {showBookForm && <BookForm authors={authors}
                                        updateClicked={updateClicked}
                                        closeButtonClicked={handleCloseButtonClicked}
