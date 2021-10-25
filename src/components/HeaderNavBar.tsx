@@ -14,7 +14,7 @@ const HeaderNavBar: React.FC = () => {
     <React.Fragment>
       <Row className="shadow">
         <Col xs={6} className='my-2'>
-          <h1 className="header pl-5" onClick={() => history.push('/')}>My Library</h1>
+          <h1 className="nav-header pl-5" onClick={() => history.push('/')}>My Library</h1>
         </Col>
         <Col xs={6} className='pr-5 d-flex justify-content-end align-items-center'>
           <h3 className="nav ml-5" onClick={() => handleNavClicked('authors')}>Authors</h3>
