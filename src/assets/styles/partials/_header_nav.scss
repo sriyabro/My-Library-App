@@ -1,7 +1,14 @@
 @import "variables";
 
-.header-nav {
+.header {
   font-weight: 700;
   font-size: 3em;
   color: $font-color;
+}
+
+.nav {
+  cursor: pointer;
+}
+.nav:hover {
+  color: #0A54A0;
 }
