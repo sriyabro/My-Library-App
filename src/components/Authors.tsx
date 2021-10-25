@@ -8,6 +8,9 @@ import AuthorForm from "./author/AuthorForm";
 import {IAlert, IAuthor} from "../types/Types";
 import DeleteConfirmation from "./alerts/DeleteConfirmation";
 import ConfirmationAlert from "./alerts/ConfirmationAlert";
+import {BASE_URI} from "../config/config";
+
+const AUTHOR_URI = BASE_URI + 'authors/';
 
 type AuthorsProps = {
     authors: IAuthor[] | null,
@@ -37,7 +40,12 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         setShowAuthorForm(false);
     }
 
-    const handleCreateAuthorSubmit = (newAuthor: IAuthor) => {
+    const handleCreateAuthorSubmit = async (newAuthor: IAuthor) => {
+        await fetch(AUTHOR_URI, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newAuthor)
+        })
         const newAuthorList: IAuthor[] = authors ? authors.slice() : [];
         newAuthorList.push(newAuthor);
         onAuthorsChange(newAuthorList);
@@ -58,11 +66,17 @@ const Authors: React.FC<AuthorsProps> = (props) => {
             setAuthorNameToUpdate(authors[indexToUpdate].name);
     }, [indexToUpdate])
 
-    const handleUpdateAuthorSubmit = (updatedAuthor: IAuthor) => {
+    const handleUpdateAuthorSubmit = async (updatedAuthor: IAuthor) => {
         if (indexToUpdate === null) {
             return;
         }
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
+        let id = newAuthorList[indexToUpdate].id;
+        await fetch(AUTHOR_URI + id, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedAuthor)
+        });
         newAuthorList.splice(indexToUpdate, 1, updatedAuthor);
         onAuthorsChange(newAuthorList);
         setAlertContent({message:"Author Updated Successfully", variant:"warning"});
@@ -84,11 +98,15 @@ const Authors: React.FC<AuthorsProps> = (props) => {
 
     const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
-    const handleDeleteValidationConfirm = () => {
+    const handleDeleteValidationConfirm = async () => {
         if (indexToDelete == null) {
             return;
         }
         const newAuthorList: IAuthor[] = authors? authors.slice() : [];
+        let id = newAuthorList[indexToDelete].id;
+        await fetch(AUTHOR_URI + id, {
+            method: 'DELETE'
+        });
         newAuthorList.splice(indexToDelete, 1);
         onAuthorsChange(newAuthorList);
         setShowDeleteConfirmation(false);
