@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Col,Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import Authors from "./Authors";
-import Books from "./Books";
 import {IAuthor, IBook} from "../types/Types";
 import {BASE_URI} from "../config/config";
 
@@ -29,12 +28,10 @@ const LibraryBody: React.FC = () => {
     }
 
     const handleOnAuthorsChange = (authors: IAuthor[]) => setAuthors(authors);
-    const handleOnBooksChange = (books: IBook[]) => setBooks(books);
 
     return (
         <Row className="library-body mt-4">
             <Col xs={12} md={6} className="px-5 mb-5">
-                <Books authors={authors} books={books} onBooksChange={handleOnBooksChange}/>
             </Col>
             <Col xs={12} md={6} className="px-5 mb-5">
                 <Authors authors={authors} onAuthorsChange={handleOnAuthorsChange}/>

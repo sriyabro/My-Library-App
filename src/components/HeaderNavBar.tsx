@@ -12,7 +12,7 @@ const HeaderNavBar: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Row className="shadow">
+      <Row className="shadow p-0 m-0">
         <Col xs={6} className='my-2'>
           <h1 className="nav-header pl-5" onClick={() => history.push('/')}>My Library</h1>
         </Col>
