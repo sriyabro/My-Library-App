@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Row} from "react-bootstrap";
 import Header from "./Header";
 import NoItemsLabel from "./NoItemsLabel";
@@ -8,15 +8,19 @@ import BookForm from "./book/BookForm";
 import {IAlert, IAuthor, IBook} from "../types/Types";
 import ConfirmationAlert from "./alerts/ConfirmationAlert";
 import DeleteConfirmation from "./alerts/DeleteConfirmation";
+import {BASE_URI} from "../config/config";
+
+const BOOKS_URI = BASE_URI + 'books/';
 
 type BooksProps = {
     authors: IAuthor[] | null
+    books: IBook[] | null
+    onBooksChange: (books: IBook[]) => void
 }
 
 const Books: React.FC<BooksProps> = (props) => {
-    const {authors} = props;
+    const {authors, books, onBooksChange} = props;
 
-    const [books, setBooks] = useState<IBook[] | null>(null);
     const [showBookForm, setShowBookForm] = useState<boolean>(false);
     const [updateClicked, setUpdateClicked] = useState<boolean>(false);
     const [indexToUpdate, setIndexToUpdate] = useState<number | null>(null);
@@ -27,15 +31,12 @@ const Books: React.FC<BooksProps> = (props) => {
     const [bookNameToDelete, setBookNameToDelete] =useState<string | null>(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
-    useEffect(() => {
-        setBooks(books);
-    },[books]);
-
     const handleAddBookClicked = () => {
         setShowBookForm(false);
         setUpdateClicked(false);
         setShowBookForm(true);
     }
+
     const handleCloseButtonClicked = () => setShowBookForm(false);
 
     const handleOnDeleteClick = (index: number) => {
@@ -45,28 +46,32 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowBookForm(false);
     }
 
-    const handleCreateBook = (newBook: IBook) => {
+    const handleCreateBook = async (newBook: IBook) => {
+        await fetch(BOOKS_URI, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newBook)
+        })
         const newBookList: IBook[] = books ? books.slice() : [];
         newBookList.push(newBook);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setAlertContent({message: "Book Created Successfully", variant: "success"});
         setShowAlertMessage(true);
     }
 
-    // useEffect(() => {
-    //     if (indexToUpdate === null || !books) {
-    //         return;
-    //     }
-    //     setBookToUpdate(books[indexToUpdate]);
-    // }, [indexToUpdate])
-
-    const handleUpdateBook = (updatedBook: IBook) => {
+    const handleUpdateBook = async (updatedBook: IBook) => {
         if (indexToUpdate === null) {
             return;
         }
         const newBookList: IBook[] = books ? books.slice() : [];
+        let id = newBookList[indexToUpdate].id;
+        await fetch(BOOKS_URI + id, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedBook)
+        });
         newBookList.splice(indexToUpdate, 1, updatedBook);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setIndexToUpdate(null);
         setBookToUpdate(null);
         setAlertContent({message: "Book Updated Successfully", variant: "warning"});
@@ -80,22 +85,19 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowBookForm(true);
     }
 
-    // useEffect(() => {
-    //     if (!books || indexToDelete === null) {
-    //         return;
-    //     }
-    //     setBookNameToDelete(books[indexToDelete].name);
-    // }, [indexToDelete]);
-
     const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
-    const handleDeleteValidationConfirm = () => {
+    const handleDeleteValidationConfirm = async () => {
         if (indexToDelete == null) {
             return;
         }
         const newBookList: IBook[] = books? books.slice() : [];
+        let id = newBookList[indexToDelete].id;
+        await fetch(BOOKS_URI + id, {
+            method: 'DELETE'
+        });
         newBookList.splice(indexToDelete, 1);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setShowDeleteConfirmation(false);
         setAlertContent({message:"Book Deleted Successfully", variant:"danger"});
         setShowAlertMessage(true);
