@@ -20,6 +20,7 @@ const LibraryBody: React.FC = () => {
         const authors = await res.json();
         setAuthors(authors);
     }
+
     const fetchBooks = async () => {
         let uri = BASE_URI + 'books';
         const res = await fetch(uri);
