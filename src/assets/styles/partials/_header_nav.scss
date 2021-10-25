@@ -4,6 +4,7 @@
   font-weight: 700;
   font-size: 3em;
   color: $font-color;
+  z-index: 2;
 }
 
 .nav {
@@ -12,3 +13,12 @@
 .nav:hover {
   color: #0A54A0;
 }
+
+.menu-div {
+  background-color: transparent;
+
+  .menu {
+    cursor: pointer;
+  }
+}
+
