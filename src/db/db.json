@@ -1,19 +1,110 @@
 {
   "authors": [
     {
-      "id": 1,
-      "name": "Dale"
+      "name": "William Shakespeare",
+      "id": 1
+    },
+    {
+      "name": "Vladimir Nabokov",
+      "id": 2
+    },
+    {
+      "name": "Mark Twain",
+      "id": 3
+    },
+    {
+      "name": "Leo Tolstoy",
+      "id": 4
+    },
+    {
+      "name": "Joseph Conrad",
+      "id": 5
+    },
+    {
+      "name": "Charles Dickens",
+      "id": 6
     }
   ],
   "books": [
     {
-      "id": 1,
-      "name": "Book 1",
-      "ISBN": 3646657728,
-      "price": 300,
+      "name": "Hamlet",
+      "ISBN": "987-8-74-347712-3",
+      "price": "$60",
       "author": {
-        "name": "Dale"
-      }
+        "name": "William Shakespeare",
+        "id": 1
+      },
+      "id": 1
+    },
+    {
+      "name": "Macbeth",
+      "ISBN": "928-8-37-766266-6",
+      "price": "$20",
+      "author": {
+        "name": "William Shakespeare",
+        "id": 1
+      },
+      "id": 2
+    },
+    {
+      "name": "Othello",
+      "ISBN": "278-6-68-623557-1",
+      "price": "$30",
+      "author": {
+        "name": "William Shakespeare",
+        "id": 1
+      },
+      "id": 3
+    },
+    {
+      "name": "Lolita",
+      "ISBN": "729-7-68-368686-8",
+      "price": "$50",
+      "author": {
+        "name": "Vladimir Nabokov",
+        "id": 2
+      },
+      "id": 4
+    },
+    {
+      "name": "The Real Life of Sebastian Knight",
+      "ISBN": "236-5-17-531785-7",
+      "price": "$45",
+      "author": {
+        "name": "Vladimir Nabokov",
+        "id": 2
+      },
+      "id": 5
+    },
+    {
+      "name": "The Adventures of Huckleberry Finn",
+      "ISBN": "318-6-38-162386-8",
+      "price": "$85",
+      "author": {
+        "name": "Mark Twain",
+        "id": 3
+      },
+      "id": 6
+    },
+    {
+      "name": "Great Expectations",
+      "ISBN": "786-3-82-686868-8",
+      "price": "$90",
+      "author": {
+        "name": "Charles Dickens",
+        "id": 6
+      },
+      "id": 7
+    },
+    {
+      "name": "The Adventures of Oliver Twist",
+      "ISBN": "864-4-38-696545-4",
+      "price": "$65",
+      "author": {
+        "name": "Charles Dickens",
+        "id": 6
+      },
+      "id": 8
     }
   ]
 }
