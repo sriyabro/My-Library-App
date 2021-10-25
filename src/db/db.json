@@ -23,6 +23,10 @@
     {
       "name": "Charles Dickens",
       "id": 6
+    },
+    {
+      "name": "Anton Chekhov",
+      "id": 7
     }
   ],
   "books": [
@@ -105,6 +109,15 @@
         "id": 6
       },
       "id": 8
+    },
+    {
+      "name": "The Lady with the Dog",
+      "ISBN": "672-5-31-966868-6",
+      "price": "$86",
+      "author": {
+        "name": "Anton Chekhov"
+      },
+      "id": 9
     }
   ]
 }
