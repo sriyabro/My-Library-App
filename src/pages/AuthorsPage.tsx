@@ -8,6 +8,7 @@ import AuthorForm from "../components/author/AuthorForm";
 import DeleteConfirmation from "../components/alerts/DeleteConfirmation";
 import {IAlert, IAuthor} from "../types/Types";
 import {BASE_URI} from "../config/config";
+import Header from "../components/Header";
 
 const AUTHOR_URI = BASE_URI + 'authors/';
 
@@ -122,7 +123,7 @@ const AuthorsPage: React.FC = () => {
     <React.Fragment>
       <Row className="authors m-3 p-0">
         <Col xs={12} md={6} className="p-0 p-md-2">
-          {/*<Header header="Authors" />*/}
+          <Header header="Authors" />
           {(!authors || authors.length === 0) && <NoItemsLabel message={"No authors listed here"}/>}
           {authors && <AuthorList authors={authors}
                                   onUpdateClick={handleOnUpdateClick}
@@ -131,7 +132,6 @@ const AuthorsPage: React.FC = () => {
         </Col>
         <Col xs={12} md={6} className="p-0 p-md-2">
           <ConfirmationAlert content={alertContent} showAlertMessage={showAlertMessage}/>
-
           <AddAuthor addAuthorClicked={handleAddAuthorClicked}/>
           {showAuthorForm && <AuthorForm closeButtonClicked={handleCloseButtonClicked}
                                          createAuthorSubmit={handleCreateAuthorSubmit}
