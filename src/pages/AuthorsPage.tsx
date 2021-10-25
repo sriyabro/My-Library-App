@@ -69,6 +69,7 @@ const AuthorsPage: React.FC = () => {
       return;
     }
     setAuthorNameToUpdate(authors[indexToUpdate].name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexToUpdate])
 
   const handleUpdateAuthorSubmit = async (updatedAuthor: IAuthor) => {
@@ -99,6 +100,7 @@ const AuthorsPage: React.FC = () => {
       return;
     }
     setAuthorNameToDelete(authors[indexToDelete].name);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexToDelete]);
 
   const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);

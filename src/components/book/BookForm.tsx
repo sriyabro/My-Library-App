@@ -1,10 +1,9 @@
 import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {XCircle} from "react-feather";
-import Select from "react-select";
+import Select, {ValueType} from "react-select";
 import {IAuthor, IBook, ISelector} from "../../types/Types";
-import {customStyles, selectorBorderColorValue} from "../../constants/constsants";
-import {ValueType} from "react-select";
+import {customStyles} from "../../constants/constsants";
 import NumberFormat from 'react-number-format';
 
 type BookFormProps = {
@@ -26,7 +25,7 @@ const BookForm: React.FC<BookFormProps> = (props) => {
   const [formValidate, setFormValidate] = useState<boolean>(false);
   const [selectorValidate, setSelectorValidate] = useState<boolean>(false);
   const [selectorOptions, setSelectorOptions] = useState<ISelector[] | null>(null);
-  const [selectorBorderColor, setSelectorBorderColor] = useState<string>(selectorBorderColorValue);
+  // const [selectorBorderColor, setSelectorBorderColor] = useState<string>(selectorBorderColorValue);
 
   const clearFormValues = () => {
     setBookName('');
@@ -47,12 +46,12 @@ const BookForm: React.FC<BookFormProps> = (props) => {
     if (option) {
       setSelectedAuthor(option.value);
       if (selectorValidate) {
-        setSelectorBorderColor('#5cb85c');
+        // setSelectorBorderColor('#5cb85c');
       }
     } else {
       setSelectedAuthor(null);
       if (selectorValidate) {
-        setSelectorBorderColor('#d9534f');
+        // setSelectorBorderColor('#d9534f');
       }
     }
   }
