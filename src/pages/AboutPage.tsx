@@ -12,7 +12,7 @@ const AboutPage: React.FC = () => {
         </Col>
         <Col className="m-4 d-flex align-items-center">
           <GitHub size={30}/>
-          <a href="https://github.com/sriyabro/My-Library-App" target="_blank"><span className="h2 text-body">&nbsp;&nbsp;My Library App</span></a>
+          <a href="https://github.com/sriyabro/My-Library-App" target="_blank" rel="noreferrer"><span className="h2 text-body">&nbsp;&nbsp;My Library App</span></a>
         </Col>
       </Row>
     </React.Fragment>
