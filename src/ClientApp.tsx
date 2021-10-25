@@ -1,10 +1,8 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, RouteComponentProps, Switch} from "react-router-dom";
 import {Container, Row} from "react-bootstrap";
-import HomePage from "./pages/HomePage";
-import BooksPage from "./pages/BooksPage";
-import AuthorsPage from "./pages/AuthorsPage";
 import HeaderNavBar from "./components/HeaderNavBar";
+import {routes} from "./config/routes";
 
 const ClientApp: React.FC = () => {
   return (
@@ -13,15 +11,15 @@ const ClientApp: React.FC = () => {
         <HeaderNavBar/>
         <Row>
           <Switch>
-            <Route path="/authors">
-              <AuthorsPage/>
-            </Route>
-            <Route path="/books">
-              <BooksPage/>
-            </Route>
-            <Route path="/">
-              <HomePage/>
-            </Route>
+            {routes.map((route, index) =>
+              <Route
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                render={(routeProps: RouteComponentProps<any>) => {
+                  return <route.component  {...routeProps} />
+                }}
+              />)}
           </Switch>
         </Row>
       </Router>
