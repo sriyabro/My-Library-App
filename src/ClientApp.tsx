@@ -1,18 +1,17 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Col, Container, Row} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 import HomePage from "./pages/HomePage";
 import BooksPage from "./pages/BooksPage";
 import AuthorsPage from "./pages/AuthorsPage";
+import HeaderNavBar from "./components/HeaderNavBar";
 
 const ClientApp: React.FC = () => {
   return (
     <Container fluid={true}>
-      <Row>
-        <Col xs={12} className='text-center my-2'>
-          <h1 className="header-nav">My Library</h1>
-        </Col>
-        <Router>
+      <Router>
+        <HeaderNavBar/>
+        <Row>
           <Switch>
             <Route path="/authors">
               <AuthorsPage/>
@@ -24,8 +23,8 @@ const ClientApp: React.FC = () => {
               <HomePage/>
             </Route>
           </Switch>
-        </Router>
-      </Row>
+        </Row>
+      </Router>
     </Container>
   );
 }
