@@ -18,3 +18,10 @@ export interface ISelector {
     label: string
     value: IAuthor
 }
+
+export interface IRoute {
+    path: string;
+    exact: boolean;
+    component: any;
+    protected: boolean;
+}
