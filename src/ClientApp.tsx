@@ -8,7 +8,7 @@ const ClientApp: React.FC = () => {
         <Container fluid={true}>
             <Row>
                 <Col xs={12} className='text-center my-2'>
-                    <h1>My Library</h1>
+                    <h1 className="header-nav">My Library</h1>
                 </Col>
                 <Col xs={12} >
                     <Welcome />
