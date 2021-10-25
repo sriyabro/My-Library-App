@@ -8,6 +8,9 @@ import BookForm from "./book/BookForm";
 import {IAlert, IAuthor, IBook} from "../types/Types";
 import ConfirmationAlert from "./alerts/ConfirmationAlert";
 import DeleteConfirmation from "./alerts/DeleteConfirmation";
+import {BASE_URI} from "../config/config";
+
+const BOOKS_URI = BASE_URI + 'books/';
 
 type BooksProps = {
     authors: IAuthor[] | null
@@ -43,7 +46,12 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowBookForm(false);
     }
 
-    const handleCreateBook = (newBook: IBook) => {
+    const handleCreateBook = async (newBook: IBook) => {
+        await fetch(BOOKS_URI, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newBook)
+        })
         const newBookList: IBook[] = books ? books.slice() : [];
         newBookList.push(newBook);
         onBooksChange(newBookList);
@@ -51,11 +59,17 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowAlertMessage(true);
     }
 
-    const handleUpdateBook = (updatedBook: IBook) => {
+    const handleUpdateBook = async (updatedBook: IBook) => {
         if (indexToUpdate === null) {
             return;
         }
         const newBookList: IBook[] = books ? books.slice() : [];
+        let id = newBookList[indexToUpdate].id;
+        await fetch(BOOKS_URI + id, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedBook)
+        });
         newBookList.splice(indexToUpdate, 1, updatedBook);
         onBooksChange(newBookList);
         setIndexToUpdate(null);
@@ -73,11 +87,15 @@ const Books: React.FC<BooksProps> = (props) => {
 
     const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
-    const handleDeleteValidationConfirm = () => {
+    const handleDeleteValidationConfirm = async () => {
         if (indexToDelete == null) {
             return;
         }
         const newBookList: IBook[] = books? books.slice() : [];
+        let id = newBookList[indexToDelete].id;
+        await fetch(BOOKS_URI + id, {
+            method: 'DELETE'
+        });
         newBookList.splice(indexToDelete, 1);
         onBooksChange(newBookList);
         setShowDeleteConfirmation(false);
