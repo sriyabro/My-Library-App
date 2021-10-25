@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Row} from "react-bootstrap";
 import Header from "./Header";
 import NoItemsLabel from "./NoItemsLabel";
@@ -11,12 +11,13 @@ import DeleteConfirmation from "./alerts/DeleteConfirmation";
 
 type BooksProps = {
     authors: IAuthor[] | null
+    books: IBook[] | null
+    onBooksChange: (books: IBook[]) => void
 }
 
 const Books: React.FC<BooksProps> = (props) => {
-    const {authors} = props;
+    const {authors, books, onBooksChange} = props;
 
-    const [books, setBooks] = useState<IBook[] | null>(null);
     const [showBookForm, setShowBookForm] = useState<boolean>(false);
     const [updateClicked, setUpdateClicked] = useState<boolean>(false);
     const [indexToUpdate, setIndexToUpdate] = useState<number | null>(null);
@@ -27,15 +28,12 @@ const Books: React.FC<BooksProps> = (props) => {
     const [bookNameToDelete, setBookNameToDelete] =useState<string | null>(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
-    useEffect(() => {
-        setBooks(books);
-    },[books]);
-
     const handleAddBookClicked = () => {
         setShowBookForm(false);
         setUpdateClicked(false);
         setShowBookForm(true);
     }
+
     const handleCloseButtonClicked = () => setShowBookForm(false);
 
     const handleOnDeleteClick = (index: number) => {
@@ -48,17 +46,10 @@ const Books: React.FC<BooksProps> = (props) => {
     const handleCreateBook = (newBook: IBook) => {
         const newBookList: IBook[] = books ? books.slice() : [];
         newBookList.push(newBook);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setAlertContent({message: "Book Created Successfully", variant: "success"});
         setShowAlertMessage(true);
     }
-
-    // useEffect(() => {
-    //     if (indexToUpdate === null || !books) {
-    //         return;
-    //     }
-    //     setBookToUpdate(books[indexToUpdate]);
-    // }, [indexToUpdate])
 
     const handleUpdateBook = (updatedBook: IBook) => {
         if (indexToUpdate === null) {
@@ -66,7 +57,7 @@ const Books: React.FC<BooksProps> = (props) => {
         }
         const newBookList: IBook[] = books ? books.slice() : [];
         newBookList.splice(indexToUpdate, 1, updatedBook);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setIndexToUpdate(null);
         setBookToUpdate(null);
         setAlertContent({message: "Book Updated Successfully", variant: "warning"});
@@ -80,13 +71,6 @@ const Books: React.FC<BooksProps> = (props) => {
         setShowBookForm(true);
     }
 
-    // useEffect(() => {
-    //     if (!books || indexToDelete === null) {
-    //         return;
-    //     }
-    //     setBookNameToDelete(books[indexToDelete].name);
-    // }, [indexToDelete]);
-
     const handleDeleteValidationClose = () => setShowDeleteConfirmation(false);
 
     const handleDeleteValidationConfirm = () => {
@@ -95,7 +79,7 @@ const Books: React.FC<BooksProps> = (props) => {
         }
         const newBookList: IBook[] = books? books.slice() : [];
         newBookList.splice(indexToDelete, 1);
-        setBooks(newBookList);
+        onBooksChange(newBookList);
         setShowDeleteConfirmation(false);
         setAlertContent({message:"Book Deleted Successfully", variant:"danger"});
         setShowAlertMessage(true);
