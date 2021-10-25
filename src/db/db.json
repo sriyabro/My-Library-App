@@ -1,0 +1,19 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "name": "Dale"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "name": "Book 1",
+      "ISBN": 3646657728,
+      "price": 300,
+      "author": {
+        "name": "Dale"
+      }
+    }
+  ]
+}
