@@ -8,6 +8,7 @@ import BookList from "../components/book/BookList";
 import AddBook from "../components/book/AddBook";
 import BookForm from "../components/book/BookForm";
 import DeleteConfirmation from "../components/alerts/DeleteConfirmation";
+import Header from "../components/Header";
 
 const BOOKS_URI = BASE_URI + 'books/';
 
@@ -25,8 +26,8 @@ const BooksPage: React.FC = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchAuthors();
     fetchBooks();
+    fetchAuthors();
   }, []);
 
   const fetchAuthors = async () => {
@@ -119,7 +120,7 @@ const BooksPage: React.FC = () => {
     <React.Fragment>
       <Row className="books m-3 p-0">
         <Col xs={12} md={6} className="p-0 p-md-2">
-          {/*<Header header="Books"/>*/}
+          <Header header="Books"/>
           {(!books || books.length === 0) && <NoItemsLabel message={"No books listed here"}/>}
           {books && <BookList books={books} onUpdateClick={handleOnUpdateClick} onDeleteClick={handleOnDeleteClick}/>}
         </Col>
