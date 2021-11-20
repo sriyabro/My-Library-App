@@ -8,7 +8,7 @@ const HeaderNavBar: React.FC = () => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
   const handleNavClicked = (nav: string) => {
-    if (nav) setShowMobileMenu(!showMobileMenu);
+    setShowMobileMenu(!showMobileMenu);
     history.push(`/${nav}`);
   }
 
